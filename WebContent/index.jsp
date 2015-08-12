@@ -15,9 +15,13 @@ Ext.onReady(function() {
 			/**
 			 * 上,panel.Panel
 			 */
-			this.topPanel = Ext.create('Ext.panel.Panel', {
+			this.topPanel = Ext.create('Ext.Component', {
 						region : 'north',
-						height : 55
+						height: 32, // give north and south regions a height
+		                autoEl: {
+		                    tag: 'div',
+		                    html:'<p>吉林市最低生活保障救助信息管理系统 ver2.0</p>'
+		                }
 					});
 			/**
 			 * 左,panel.Panel
@@ -56,13 +60,22 @@ Ext.onReady(function() {
 							listeners : {
 								'itemclick' : function(view, record, item,
 										index, e) {
-									var id = record.get('id');
-									var text = record.get('text');
-									var leaf = record.get('leaf');
-									if (leaf) {
-										alert('id-' + id + ',text-' + text
-												+ ',leaf-' + leaf);
-									}
+									 //点击菜单时，执行main.js里的addTab方法。 
+						            //传递的参数包括当前点击节点的id,url,文本信息text,是否是叶子leaf。 
+						        	var n = rightPanel.getComponent(record.raw.id);  
+					                 if(record.raw.id=='root'){  
+					                    return;  
+					                 }  
+					                   if (!n) { // 判断是否已经打开该面板  
+					                                        n = rightPanel.add({  
+					                                            'id' : record.raw.id,  
+					                                            'title' : record.raw.text,  
+					                                             closable : true, // 通过html载入目标页  
+					                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.url+'"></iframe>'
+					                                             //html:r.raw.id
+					                                        });  
+					                                    }  
+					                   rightPanel.setActiveTab(n);
 								},
 								scope : this
 							}
