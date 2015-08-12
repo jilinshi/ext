@@ -8,100 +8,109 @@
 <script src="extjs5/ext-locale/ext-locale-zh_CN.js"></script>
 <link href="extjs5/ext-theme-classic/build/resources/ext-theme-classic-all.css" rel="stylesheet" />
 <script type="text/javascript">
-Ext.require(['Ext.data.*', 'Ext.tree.*', 'Ext.tab.*', 'Ext.panel.*',  
-             'Ext.container.Viewport']);  
-       
-     Ext.onReady(function() {  
-         Ext.QuickTips.init();  
-           
-          Ext.define("treeModel", { // 定义树节点数据模型  
-             extend : "Ext.data.Model",  
-             fields : [{  
-                         name : "id",  
-                         type : "string"  
-                     }, {  
-                         name : "text",  
-                         type : "string"  
-                     }, {  
-                         name : "iconCls",  
-                         type : "string"  
-                     }, {  
-                         name : "leaf",  
-                         type : "boolean"  
-                     }, {  
-                         name : 'type',  
-                         type : "string"  
-                     }, {  
-                         name : 'component',  
-                         type : "string"  
-                     }, {  
-                         name : 'url',  
-                         type : "string"  
-                     }]  
-         });  
-         var treeStore = Ext.create('Ext.data.TreeStore', {  
-                     model : 'treeModel',  
-                     proxy : {  
-                         type : 'ajax',  
-                         url : 'm.json'  
-                     },  
-                     folderSort : true  
-                 });  
-         var tree = Ext.create('Ext.tree.Panel', {  
-                     title : '问卷管理',  
-                     animate : true, // 有滑动效果  
-                     autoScroll : true,  
-                     autoHeight : true,  
-                     width : '100%',  
-                     collapsible : true,  
-                     expanded : true,  
-                     rootVisible : true,  
-                     store : treeStore  
-                 });  
-       
-         var centerTab = Ext.create('Ext.tab.Panel', {  
-                     activeTab : 0,  
-                     enableTabScroll : true,  
-                     animScroll : true,  
-                     border : true,  
-                     autoScroll : true,  
-                     region : 'center',  
-                     split : true,  
-                     items : [{  
-                                 iconCls : 'icon-activity',  
-                                 title : '首页',  
-                                 html : '<h1>hello</h1>'  
-                             }]  
-                 });  
-         var westTree = Ext.create("Ext.panel.Panel", {  
-                     region : 'west',  
-                     title : "系统菜单",  
-                     width : 200,  
-                     iconCls : "icon-tree",  
-                     autoScroll : false,  
-       
-                     layout : 'accordion',  
-                     collapsible : true,  
-                     layoutConfig : {  
-                         animate : true  
-                     },  
-                     items : [tree],  
-                     split : true  
-                 });  
-         var northTitle = Ext.create("Ext.panel.Panel", {  
-                     height : 75,  
-                     html : '1111111111111',  
-                     region : 'north',  
-                     split : true  
-       
-                 });  
-         Ext.create('Ext.container.Viewport', {  
-                     layout : 'border',  
-                     items : [northTitle, centerTab, westTree]  
-       
-                 });  
-       
-     });  
+/**
+ * 程序主入口
+ */
+Ext.onReady(function() {
+			/**
+			 * 上,panel.Panel
+			 */
+			this.topPanel = Ext.create('Ext.panel.Panel', {
+						region : 'north',
+						height : 55
+					});
+			/**
+			 * 左,panel.Panel
+			 */
+			this.leftPanel = Ext.create('Ext.panel.Panel', {
+						region : 'west',
+						title : '导航栏',
+						width : 180,
+						layout : 'accordion',
+						collapsible : true
+					});
+			/**
+			 * 右,tab.Panel
+			 */
+			this.rightPanel = Ext.create('Ext.tab.Panel', {
+						region : 'center',
+						layout : 'fit',
+						tabWidth : 120,
+						items : [{
+									title : '首页'
+								}]
+					});
+			/**
+			 * 组建树
+			 */
+			var buildTree = function(json) {
+				return Ext.create('Ext.tree.Panel', {
+							rootVisible : false,
+							border : false,
+							store : Ext.create('Ext.data.TreeStore', {
+										root : {
+											expanded : true,
+											children : json.children
+										}
+									}),
+							listeners : {
+								'itemclick' : function(view, record, item,
+										index, e) {
+									var id = record.get('id');
+									var text = record.get('text');
+									var leaf = record.get('leaf');
+									if (leaf) {
+										alert('id-' + id + ',text-' + text
+												+ ',leaf-' + leaf);
+									}
+								},
+								scope : this
+							}
+						});
+			};
+			/**
+			 * 加载菜单树
+			 */
+			Ext.Ajax.request({
+						url : 'main/biz/getmenujson.do',
+						success : function(response) {
+							var json = Ext.JSON.decode(response.responseText)
+							Ext.each(json.data, function(el) {
+										var panel = Ext.create(
+												'Ext.panel.Panel', {
+													id : el.id,
+													title : el.text,
+													animate : true, // 有滑动效果  
+								                    autoScroll : true,  
+								                    autoHeight : true,  
+								                    collapsible : true,  
+								                    expanded : true,
+								                    rootVisible : true
+												});
+										panel.add(buildTree(el));
+										leftPanel.add(panel);
+									});
+						},
+						failure : function(request) {
+							Ext.MessageBox.show({
+										title : '操作提示',
+										msg : "连接服务器失败",
+										buttons : Ext.MessageBox.OK,
+										icon : Ext.MessageBox.ERROR
+									});
+						},
+						method : 'post'
+					});
+			/**
+			 * Viewport
+			 */
+			Ext.create('Ext.container.Viewport', {
+						layout : 'border',
+						renderTo : Ext.getBody(),
+						items : [this.topPanel, this.leftPanel, this.rightPanel]
+					});
+		});
+
 
 </script>
 <title>Insert title here</title>
