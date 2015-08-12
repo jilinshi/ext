@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="extjs5/examples/shared/include-ext.js?theme=classic"></script>
+<script src="extjs5/ext-all.js"></script>
+<script src="extjs5/ext-locale/ext-locale-zh_CN.js"></script>
+<link href="extjs5/ext-theme-classic/build/resources/ext-theme-classic-all.css" rel="stylesheet" />
 <script type="text/javascript">
 Ext.require(['Ext.data.*', 'Ext.tree.*', 'Ext.tab.*', 'Ext.panel.*',  
              'Ext.container.Viewport']);  

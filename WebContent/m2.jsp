@@ -23,7 +23,7 @@ Ext.onReady(function() {
 			this.leftPanel = Ext.create('Ext.panel.Panel', {
 						region : 'west',
 						title : '导航栏',
-						width : 230,
+						width : 180,
 						layout : 'accordion',
 						collapsible : true
 					});
