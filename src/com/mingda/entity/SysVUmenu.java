@@ -4,65 +4,65 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 /**
  * The persistent class for the SYS_V_UMENU database table.
  * 
  */
 @Entity
-@Table(name="SYS_V_UMENU")
-@NamedQuery(name="SysVUmenu.findAll", query="SELECT s FROM SysVUmenu s")
+@Table(name = "SYS_V_UMENU")
+@NamedQueries({ @NamedQuery(name = "SysVUmenu.findAll", query = "SELECT s FROM SysVUmenu s"),
+		@NamedQuery(name = "SysVUmenu.findByUser", query = "SELECT s FROM SysVUmenu s where s.userId=:userId and s.privicode=:privicode order by s.menucode") })
 public class SysVUmenu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String idno;
 
 	private BigDecimal idx;
 	@Id
-	@Column(name="MENU_ID", nullable=false, precision=12)
+	@Column(name = "MENU_ID", nullable = false, precision = 12)
 	private BigDecimal menuId;
 
-	@Column(length=128)
+	@Column(length = 128)
 	private String menucode;
 
-	@Column(length=128)
+	@Column(length = 128)
 	private String menuname;
 
-	@Column(length=128)
+	@Column(length = 128)
 	private String menuurl;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String mobilephone;
 
-	@Column(name="ORG_ID", precision=12)
+	@Column(name = "ORG_ID", precision = 12)
 	private BigDecimal orgId;
 
-	@Column(name="PM_ID", precision=12)
+	@Column(name = "PM_ID", precision = 12)
 	private BigDecimal pmId;
 
-	@Column(length=128)
+	@Column(length = 128)
 	private String privicode;
 
-	@Column(length=128)
+	@Column(length = 128)
 	private String priviname;
 
-	@Column(name="ROLE_ID", nullable=false, precision=12)
+	@Column(name = "ROLE_ID", nullable = false, precision = 12)
 	private BigDecimal roleId;
 
-	@Column(length=128)
+	@Column(length = 128)
 	private String rolename;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String uaccount;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String uname;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String upwds;
 
-	@Column(name="USER_ID", nullable=false, precision=12)
+	@Column(name = "USER_ID", nullable = false, precision = 12)
 	private BigDecimal userId;
 
 	public SysVUmenu() {

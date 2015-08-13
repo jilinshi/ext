@@ -62,18 +62,21 @@ Ext.onReady(function() {
 										index, e) {
 									 //点击菜单时，执行main.js里的addTab方法。 
 						            //传递的参数包括当前点击节点的id,url,文本信息text,是否是叶子leaf。 
-						        	var n = rightPanel.getComponent(record.raw.id);  
-					                 if(record.raw.id=='root'){  
+						        	var n = rightPanel.getComponent(record.raw.menuId);  
+					                 if(record.raw.menuId=='root'){  
 					                    return;  
 					                 }  
 					                   if (!n) { // 判断是否已经打开该面板  
-		                                        n = rightPanel.add({  
-		                                            'id' : record.raw.id,  
-		                                            'title' : record.raw.text,  
+					                	   if(record.raw.leaf){
+					                		   n = rightPanel.add({  
+		                                            'id' : record.raw.menuId,  
+		                                            'title' : record.raw.menuname,  
 		                                             closable : true, // 通过html载入目标页  
-		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.url+'"></iframe>'
+		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.menuurl+'"></iframe>'
 		                                             //html:r.raw.id
 		                                        });
+					                	   }
+		                                       
 					                   }  
 					                   rightPanel.setActiveTab(n);
 								},
