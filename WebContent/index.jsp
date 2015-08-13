@@ -67,14 +67,14 @@ Ext.onReady(function() {
 					                    return;  
 					                 }  
 					                   if (!n) { // 判断是否已经打开该面板  
-					                                        n = rightPanel.add({  
-					                                            'id' : record.raw.id,  
-					                                            'title' : record.raw.text,  
-					                                             closable : true, // 通过html载入目标页  
-					                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.url+'"></iframe>'
-					                                             //html:r.raw.id
-					                                        });  
-					                                    }  
+		                                        n = rightPanel.add({  
+		                                            'id' : record.raw.id,  
+		                                            'title' : record.raw.text,  
+		                                             closable : true, // 通过html载入目标页  
+		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.url+'"></iframe>'
+		                                             //html:r.raw.id
+		                                        });
+					                   }  
 					                   rightPanel.setActiveTab(n);
 								},
 								scope : this

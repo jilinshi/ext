@@ -6,20 +6,17 @@ import java.sql.Timestamp;
 
 
 /**
- * The persistent class for the ATTORNEYRECORD database table.
+ * The persistent class for the H_ATTORNEYRECORD database table.
  * 
  */
 @Entity
-@Table(name="ATTORNEYRECORD")
-@NamedQuery(name="Attorneyrecord.findAll", query="SELECT a FROM Attorneyrecord a")
-public class Attorneyrecord implements Serializable {
+@Table(name="H_ATTORNEYRECORD")
+@NamedQuery(name="HAttorneyrecord.findAll", query="SELECT h FROM HAttorneyrecord h")
+public class HAttorneyrecord implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="ATTORNEYRECORD_AID_GENERATOR", sequenceName="SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ATTORNEYRECORD_AID_GENERATOR")
-	@Column(name="A_ID", unique=true, nullable=false, precision=12)
-	private long aId;
+	@EmbeddedId
+	private HAttorneyrecordPK id;
 
 	@Column(length=256)
 	private String attorney;
@@ -56,15 +53,15 @@ public class Attorneyrecord implements Serializable {
 
 	private Timestamp wttime;
 
-	public Attorneyrecord() {
+	public HAttorneyrecord() {
 	}
 
-	public long getAId() {
-		return this.aId;
+	public HAttorneyrecordPK getId() {
+		return this.id;
 	}
 
-	public void setAId(long aId) {
-		this.aId = aId;
+	public void setId(HAttorneyrecordPK id) {
+		this.id = id;
 	}
 
 	public String getAttorney() {
