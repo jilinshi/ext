@@ -7,17 +7,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jgroups.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.mingda.annotation.AvoidDuplicateSubmission;
+import com.mingda.entity.Attorneyrecord;
+import com.mingda.service.privilege.UserService;
 
 public class AvoidDuplicateSubmissionInterceptor extends HandlerInterceptorAdapter {
 
+	@Autowired
+	private UserService userService;// 注入业务接口
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		
+		long id = 1224850;
+		System.out.println(id);
+		Attorneyrecord userInfo = userService.getById(Attorneyrecord.class, new Long(1224850));
+		System.out.println(userInfo.getAId());
+		Attorneyrecord userInfo1 = userService.getById(Attorneyrecord.class, new Long(1224850));
+		System.out.println(userInfo1.getAId());
 		// User user = UserUtil.getUser();
 
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
