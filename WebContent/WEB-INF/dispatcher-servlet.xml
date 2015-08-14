@@ -51,4 +51,21 @@
 			</list>
 		</property>
 	</bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+			<mvc:mapping path="/main/**" />
+			<ref bean="userAccessInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<!-- 对所有的请求拦截使用/** ,对某个模块下的请求拦截使用：/myPath/* -->
+			<mvc:mapping path="/main/**" />
+			<ref bean="avoidDuplicateSubmissionInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="userAccessInterceptor" class="com.mingda.interceptor.UserAccessApiInterceptor">
+	</bean>
+	<bean id="avoidDuplicateSubmissionInterceptor" class="com.mingda.interceptor.AvoidDuplicateSubmissionInterceptor">
+	</bean>
 </beans>

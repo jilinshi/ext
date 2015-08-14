@@ -3,6 +3,7 @@ package com.mingda.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * The persistent class for the SYS_V_UMENU database table.
@@ -65,6 +66,8 @@ public class SysVUmenu implements Serializable {
 	@Column(name = "USER_ID", nullable = false, precision = 12)
 	private BigDecimal userId;
 
+	
+	
 	public SysVUmenu() {
 	}
 
@@ -203,5 +206,4 @@ public class SysVUmenu implements Serializable {
 	public void setUserId(BigDecimal userId) {
 		this.userId = userId;
 	}
-
 }

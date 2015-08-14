@@ -20,7 +20,7 @@ Ext.onReady(function() {
 						height: 32, // give north and south regions a height
 		                autoEl: {
 		                    tag: 'div',
-		                    html:'<p>吉林市最低生活保障救助信息管理系统 ver2.0</p>'
+		                    html:'<p>吉林市最低生活保障救助信息管理系统 ver3.0</p>'
 		                }
 					});
 			/**
@@ -72,8 +72,9 @@ Ext.onReady(function() {
 		                                            'id' : record.raw.menuId,  
 		                                            'title' : record.raw.menuname,  
 		                                             closable : true, // 通过html载入目标页  
-		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.menuurl+'"></iframe>'
+		                                            // html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.menuurl+'"></iframe>'
 		                                             //html:r.raw.id
+		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="main/biz/aa3.do"></iframe>'
 		                                        });
 					                	   }
 		                                       
