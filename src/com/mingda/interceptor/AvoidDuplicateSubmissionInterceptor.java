@@ -22,8 +22,7 @@ public class AvoidDuplicateSubmissionInterceptor extends HandlerInterceptorAdapt
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		
+			throws Exception {	
 		long id = 1224850;
 		System.out.println(id);
 		Attorneyrecord userInfo = userService.getById(Attorneyrecord.class, new Long(1224850));

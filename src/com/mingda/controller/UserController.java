@@ -53,6 +53,7 @@ public class UserController {
 		System.out.println(userInfo.getAId());
 		return null;
 	}
+	
 	/*
 	 * 页面
 	 * */
