@@ -12,7 +12,8 @@
         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.1.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
        http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring     
-       http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd"
+       http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd
+        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd"
 	default-lazy-init="true">
 
 
@@ -40,9 +41,9 @@
 		<!-- 数据库的密码 -->
 		<property name="password" value="${jdbc.password}" />
 		<!-- 检查数据库连接池中空闲连接的间隔时间，单位是分，默认值：240，如果要取消则设置为0 -->
-		<property name="idleConnectionTestPeriod" value="${BoneCP.idleConnectionTestPeriod}" />
+		<!-- <property name="idleConnectionTestPeriod" value="${BoneCP.idleConnectionTestPeriod}" /> -->
 		<!-- 连接池中未使用的链接最大存活时间，单位是分，默认值：60，如果要永远存活设置为0 -->
-		<property name="idleMaxAge" value="${BoneCP.idleMaxAge}" />
+		<!-- <property name="idleMaxAge" value="${BoneCP.idleMaxAge}" /> -->
 		<!-- 每个分区最大的连接数 -->
 		<property name="maxConnectionsPerPartition" value="${BoneCP.maxConnectionsPerPartition}" />
 		<!-- 每个分区最小的连接数 -->
@@ -54,7 +55,7 @@
 		<!-- 缓存prepared statements的大小，默认值：0 -->
 		<property name="statementsCacheSize" value="${BoneCP.statementsCacheSize}" />
 		<!-- 每个分区释放链接助理进程的数量，默认值：3，除非你的一个数据库连接的时间内做了很多工作，不然过多的助理进程会影响你的性能 -->
-		<property name="releaseHelperThreads" value="${BoneCP.releaseHelperThreads}" />
+		<!-- <property name="releaseHelperThreads" value="${BoneCP.releaseHelperThreads}" /> -->
 	</bean>
 
 
@@ -195,13 +196,9 @@
 		advice-ref="txAdvice"/> </aop:config> -->
 	<!-- 支持 @AspectJ 标记 -->
 	<aop:aspectj-autoproxy proxy-target-class="false" />
+	
 
-
-	<!-- 启用缓存注解功能 -->
-	<ehcache:annotation-driven cache-manager="cacheManagerEhcache" />
-
-	<!-- cacheManager工厂类，指定ehcache.xml的位置 -->
-	<!-- cacheManager, 指定ehcache.xml的位置 -->
+	<ehcache:annotation-driven cache-manager="cacheManagerEhcache"/>
     <bean id="cacheManagerEhcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation">
             <value>classpath:ehcache.xml</value>
