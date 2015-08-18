@@ -95,7 +95,7 @@ public class UserController {
 
 		// System.out.println(menuList1);
 
-		//JSONArray menuList = JSONArray.fromObject(menus);
+		// JSONArray menuList = JSONArray.fromObject(menus);
 		// System.out.println(menuList.toString());
 
 		JSONObject json = new JSONObject();
@@ -133,9 +133,9 @@ public class UserController {
 
 	public JSONArray treeMenuList(List<SysVUmenu> menus, int parentId) {
 		JSONArray childMenu = new JSONArray();
-		JSONArray menuList = JSONArray
-				.fromObject(menus.stream().filter(e -> e.getPmId().compareTo(new BigDecimal(parentId)) == 0).collect(Collectors.toList()));
-
+		JSONArray menuList = JSONArray.fromObject(menus.stream()
+				.filter(e -> e.getPmId().compareTo(new BigDecimal(parentId)) == 0).collect(Collectors.toList()));
+		System.out.println(menuList.size());
 		for (Object object : menuList) {
 			JSONObject jsonMenu = JSONObject.fromObject(object);
 			if (jsonMenu.get("menuurl").equals("#")) {
@@ -159,28 +159,19 @@ public class UserController {
 		return childMenu;
 	}
 
-/*	public JSONArray treeMenuList1(JSONArray menuList, int parentId) {
-		JSONArray childMenu = new JSONArray();
-		for (Object object : menuList) {
-			JSONObject jsonMenu = JSONObject.fromObject(object);
-			if (jsonMenu.get("menuurl").equals("#")) {
-				jsonMenu.put("leaf", false);
-			} else {
-				jsonMenu.put("leaf", true);
-			}
-
-			jsonMenu.put("id", jsonMenu.get("menuId"));
-			jsonMenu.put("text", jsonMenu.get("menuname"));
-			jsonMenu.put("url", jsonMenu.get("menuurl"));
-
-			int menuId = jsonMenu.getInt("menuId");
-			int pid = jsonMenu.getInt("pmId");
-			if (parentId == pid) {
-				JSONArray c_node = treeMenuList(menuList, menuId);
-				jsonMenu.put("children", c_node);
-				childMenu.add(jsonMenu);
-			}
-		}
-		return childMenu;
-	}*/
+	/*
+	 * public JSONArray treeMenuList1(JSONArray menuList, int parentId) {
+	 * JSONArray childMenu = new JSONArray(); for (Object object : menuList) {
+	 * JSONObject jsonMenu = JSONObject.fromObject(object); if
+	 * (jsonMenu.get("menuurl").equals("#")) { jsonMenu.put("leaf", false); }
+	 * else { jsonMenu.put("leaf", true); }
+	 * 
+	 * jsonMenu.put("id", jsonMenu.get("menuId")); jsonMenu.put("text",
+	 * jsonMenu.get("menuname")); jsonMenu.put("url", jsonMenu.get("menuurl"));
+	 * 
+	 * int menuId = jsonMenu.getInt("menuId"); int pid =
+	 * jsonMenu.getInt("pmId"); if (parentId == pid) { JSONArray c_node =
+	 * treeMenuList(menuList, menuId); jsonMenu.put("children", c_node);
+	 * childMenu.add(jsonMenu); } } return childMenu; }
+	 */
 }
