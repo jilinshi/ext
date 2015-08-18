@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mingda.annotation.AccessRequired;
 import com.mingda.annotation.AvoidDuplicateSubmission;
+import com.mingda.dto.DistrictsDTO;
 import com.mingda.entity.Attorneyrecord;
 import com.mingda.entity.SysVUmenu;
 import com.mingda.formbean.AttorneyrecordForm;
@@ -90,6 +91,8 @@ public class UserController {
 
 		List<SysVUmenu> menus = systemMgrService.getMenuByUser(new BigDecimal(1));
 
+		List<DistrictsDTO> districts = systemMgrService.getDistrict();
+
 		// JSONArray menuList1 =
 		// JSONArray.fromObject(this.getCategoryList(menus, -1));
 
@@ -101,7 +104,7 @@ public class UserController {
 		JSONObject json = new JSONObject();
 		json.put("success", true);
 
-		datajson = this.treeMenuList(menus, -1);
+		datajson = this.treeMenuList2(districts, "22");
 
 		json.put("data", datajson);
 
@@ -152,6 +155,34 @@ public class UserController {
 			int pid = jsonMenu.getInt("pmId");
 			if (parentId == pid) {
 				JSONArray c_node = treeMenuList(menus, menuId);
+				jsonMenu.put("children", c_node);
+				childMenu.add(jsonMenu);
+			}
+		}
+		return childMenu;
+	}
+
+	public JSONArray treeMenuList2(List<DistrictsDTO> menus, String parentId) {
+		JSONArray childMenu = new JSONArray();
+		JSONArray menuList = JSONArray
+				.fromObject(menus.stream().filter(e -> e.getParentId().equals(parentId)).collect(Collectors.toList()));
+		System.out.println(menuList.size());
+		for (Object object : menuList) {
+			JSONObject jsonMenu = JSONObject.fromObject(object);
+			if (jsonMenu.get("districtsNmae").equals("#")) {
+				jsonMenu.put("leaf", false);
+			} else {
+				jsonMenu.put("leaf", false);
+			}
+
+			jsonMenu.put("id", jsonMenu.get("districtsId"));
+			jsonMenu.put("text", jsonMenu.get("districtsNmae"));
+			jsonMenu.put("url", jsonMenu.get("districtsNmae"));
+
+			String menuId = jsonMenu.getString("districtsId");
+			String pid = jsonMenu.getString("parentId");
+			if (parentId.equals(pid)) {
+				JSONArray c_node = treeMenuList2(menus, menuId);
 				jsonMenu.put("children", c_node);
 				childMenu.add(jsonMenu);
 			}

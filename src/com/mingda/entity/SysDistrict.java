@@ -5,52 +5,51 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 /**
  * The persistent class for the SYS_DISTRICTS database table.
  * 
  */
 @Entity
-@Table(name="SYS_DISTRICTS")
-@NamedQuery(name="SysDistrict.findAll", query="SELECT s FROM SysDistrict s")
+@Table(name = "SYS_DISTRICTS")
+@NamedQuery(name = "SysDistrict.findAll", query = "SELECT s FROM SysDistrict s order by s.districtsId")
 public class SysDistrict implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="SYS_DISTRICTS_DISTRICTSID_GENERATOR", sequenceName="SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SYS_DISTRICTS_DISTRICTSID_GENERATOR")
-	@Column(name="DISTRICTS_ID", unique=true, nullable=false, length=256)
+	@SequenceGenerator(name = "SYS_DISTRICTS_DISTRICTSID_GENERATOR", sequenceName = "SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SYS_DISTRICTS_DISTRICTSID_GENERATOR")
+	@Column(name = "DISTRICTS_ID", unique = true, nullable = false, length = 256)
 	private String districtsId;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String col1;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String col2;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String col3;
 
-	@Column(name="DISTRICTS_CODE", length=256)
+	@Column(name = "DISTRICTS_CODE", length = 256)
 	private String districtsCode;
 
-	@Column(name="DISTRICTS_NMAE", length=256)
+	@Column(name = "DISTRICTS_NMAE", length = 256)
 	private String districtsNmae;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String flag;
 
-	@Column(length=256)
+	@Column(length = 256)
 	private String fullname;
 
-	@Column(precision=12)
+	@Column(precision = 12)
 	private BigDecimal ord;
 
-	@Column(name="PARENT_ID", length=256)
+	@Column(name = "PARENT_ID", length = 256)
 	private String parentId;
 
-	//bi-directional many-to-one association to SysOrganization
-	@OneToMany(mappedBy="sysDistrict")
+	// bi-directional many-to-one association to SysOrganization
+	@OneToMany(mappedBy = "sysDistrict")
 	private List<SysOrganization> sysOrganizations;
 
 	public SysDistrict() {

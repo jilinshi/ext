@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mingda.dao.base.BaseDaoImpl;
 import com.mingda.entity.SysVUmenu;
+
 @Repository
 public class MenuDaoImpl extends BaseDaoImpl implements MenuDao {
 
