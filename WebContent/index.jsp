@@ -74,7 +74,7 @@ Ext.onReady(function() {
 		                                             closable : true, // 通过html载入目标页  
 		                                            // html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+record.raw.menuurl+'"></iframe>'
 		                                             //html:r.raw.id
-		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="main/biz/aa3.do"></iframe>'
+		                                             html : '<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="main/base/baseinfoinit.do"></iframe>'
 		                                        });
 					                	   }
 		                                       
